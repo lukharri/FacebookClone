@@ -122,5 +122,11 @@ namespace FacebookClone.Controllers
             // Redirect
             return View("~/");
         }
+
+
+        public ActionResult LoginPartial()
+        {
+            return PartialView("_LoginPartial");
+        }
     }
 }
