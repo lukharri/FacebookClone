@@ -128,5 +128,26 @@ namespace FacebookClone.Controllers
         {
             return PartialView("_LoginPartial");
         }
+
+
+        // POST: account/login
+        [HttpPost]
+        public string Login(string username, string password)
+        {
+            // init db
+            Db db = new Db();
+
+            // check if user exists
+            if(db.Users.Any(x => x.Username.Equals(username) && x.Password.Equals(password)))
+            {
+                // log in
+                FormsAuthentication.SetAuthCookie(username, false);
+                return "ok";
+            }
+            else
+            {
+                return "problem";
+            }
+        }
     }
 }

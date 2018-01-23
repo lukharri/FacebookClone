@@ -1,5 +1,11 @@
 ﻿.form-horizontal.login-form { color: white !important; position: relative; }
 
-.form-horizontal.login-form label { color: white !important; width: 100px; }
+.form-horizontal.login-form label { color: white !important; }
 
 .form-horizontal.login-form > div.form-group { display: inline-block; margin-top: 20px; margin-right: 10px; }
+
+div.em { position: absolute; right: -330px; bottom: -10px; z-index: 1; display: none; }
+
+#login-form { position: relative; }
+
+#login-form .ajax-div { position: absolute; bottom: 30px; right: -30px; }
