@@ -1,8 +1,12 @@
-﻿using System;
+﻿using FacebookClone.Models.Data;
+using FacebookClone.Models.ViewModels.Account;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace FacebookClone.Controllers
 {
@@ -18,6 +22,83 @@ namespace FacebookClone.Controllers
                 return Redirect("~/" + username);
             
             return View();
+        }
+
+        public ActionResult CreateAccount(UserViewModel model, HttpPostedFileBase imageFile)
+        {
+            // init db
+            Db db = new Db();
+
+            // check model state
+            if(!ModelState.IsValid)
+            {
+                return View("Index", model);
+            }
+
+            // make sure username is unique
+            if(db.Users.Any(x => x.Username.Equals(model.Username)))
+            {
+                ModelState.AddModelError("", "Username" + model.Username + " is taken.");
+                model.Username = "";
+                return View("Index", model);
+            }
+
+            // create user dto
+            UserDTO userDTO = new UserDTO()
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                EmailAddress = model.EmailAddress,
+                Username = model.Username,
+                Password = model.Password
+            };
+
+            // add to DTO
+            db.Users.Add(userDTO);
+
+            // save 
+            db.SaveChanges();
+
+            // get inserted id
+            int userId = userDTO.Id;
+
+            // login user 
+            FormsAuthentication.SetAuthCookie(model.Username, false);
+
+            // sert uploads directory
+            var uploadsDir = new DirectoryInfo(string.Format("{0}Uploads", Server.MapPath(@"\")));
+
+            // check if file was uploaded
+            if (imageFile != null && imageFile.ContentLength > 0)
+            {
+                // get extension
+                string ext = imageFile.ContentType.ToLower();
+
+                // verify extension
+                if (ext != "image/jpg" &&
+                    ext != "image/jpeg" &&
+                    ext != "image/pjpeg" &&
+                    ext != "image/gif" &&
+                    ext != "image/x-png" &&
+                    ext != "image/png")
+                {
+                    ModelState.AddModelError("", "The image was not uploaded - wrong image extension.");
+                    return View("Index", model);
+
+                }
+
+                // set image name - the user's id w/the jpg extension
+                string imageName = userId + "jpg";
+
+                // set image path
+                var path = string.Format("{0}\\{1}", uploadsDir, imageName);
+
+                // save image
+                imageFile.SaveAs(path);
+            }
+
+            // redirect
+            return Redirect("~/" + model.Username);
         }
     }
 }

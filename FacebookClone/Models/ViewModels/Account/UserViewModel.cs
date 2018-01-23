@@ -8,15 +8,15 @@ using System.Web;
 
 namespace FacebookClone.Models.ViewModels.Account
 {
-    public class UserVM
+    public class UserViewModel
     {
 
-        public UserVM()
+        public UserViewModel()
         {
 
         }
 
-        public UserVM(UserDTO row)
+        public UserViewModel(UserDTO row)
         {
             Id = row.Id;
             FirstName = row.FirstName;
