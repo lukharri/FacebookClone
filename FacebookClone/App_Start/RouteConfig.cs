@@ -13,6 +13,10 @@ namespace FacebookClone
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute("Account", "{username}", new { controller = "Account", action = "Username" });
+
+            routes.MapRoute("CreateAccount", "Account/CreateAccount", new { controller = "Account", action = "CreateAccount" });
+
             routes.MapRoute("Default", "", new { controller = "Account", action = "Index" });
 
             //routes.MapRoute(

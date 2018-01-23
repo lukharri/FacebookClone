@@ -24,6 +24,9 @@ namespace FacebookClone.Controllers
             return View();
         }
 
+
+        // POST: Account/CreateAccount
+        [HttpPost]
         public ActionResult CreateAccount(UserViewModel model, HttpPostedFileBase imageFile)
         {
             // init db
@@ -99,6 +102,25 @@ namespace FacebookClone.Controllers
 
             // redirect
             return Redirect("~/" + model.Username);
+        }
+
+
+        // GET: /{username}
+        public string Username(string username = "")
+        {
+            return username;
+        }
+
+
+        // GET: Account/logout
+        [Authorize]
+        public ActionResult Logout()
+        {
+            // sign out
+            FormsAuthentication.SignOut();
+
+            // Redirect
+            return View("~/");
         }
     }
 }
