@@ -106,9 +106,9 @@ namespace FacebookClone.Controllers
 
 
         // GET: /{username}
-        public string Username(string username = "")
+        public ActionResult Username(string username = "")
         {
-            return username;
+            return View();
         }
 
 
