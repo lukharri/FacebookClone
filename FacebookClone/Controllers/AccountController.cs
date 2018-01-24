@@ -106,6 +106,7 @@ namespace FacebookClone.Controllers
 
 
         // GET: /{username}
+        [Authorize]
         public ActionResult Username(string username = "")
         {
             return View();
@@ -120,7 +121,7 @@ namespace FacebookClone.Controllers
             FormsAuthentication.SignOut();
 
             // Redirect
-            return View("~/");
+            return View("Index");
         }
 
 
