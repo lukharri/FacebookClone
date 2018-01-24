@@ -9,3 +9,11 @@ div.em { position: absolute; right: -330px; bottom: -10px; z-index: 1; display: 
 #login-form { position: relative; }
 
 #login-form .ajax-div { position: absolute; bottom: 30px; right: -30px; }
+
+.live-search-li { width: 300px; display: block; padding: 10px; position: relative; }
+
+input#search-text { position: relative; margin-top: 7px; margin-left: 100px; padding: 5px 10px; top: -5px; border-radius: 5px; }
+
+li.logout {margin-top: 5px; }
+
+a.navbar-brand { margin-top: 5px; }

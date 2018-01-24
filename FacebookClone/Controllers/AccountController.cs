@@ -109,6 +109,18 @@ namespace FacebookClone.Controllers
         [Authorize]
         public ActionResult Username(string username = "")
         {
+            // init db
+            Db db = new Models.Data.Db();
+
+            // check if user exists
+            if(!db.Users.Any(x => x.Username.Equals(username)))
+            {
+                return Redirect("Index");
+            }
+
+            // viewbag username
+            ViewBag.Username = username;
+
             return View();
         }
 

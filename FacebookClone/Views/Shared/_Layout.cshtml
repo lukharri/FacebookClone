@@ -19,7 +19,14 @@
                 @Html.ActionLink("Facebook Clone", "Index", "Account", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav"></ul>
+                <ul class="nav navbar-nav">
+                    <li class="live-search-li">
+                        <input id="search-text" class="search-text" type="text"placeholder="Search friends..."/>
+                        <ul class="live-search-ul">
+
+                        </ul>
+                    </li>
+                </ul>
                 @if (Request.IsAuthenticated)
                 {
                     <ul class="nav navbar-nav navbar-right owner">
