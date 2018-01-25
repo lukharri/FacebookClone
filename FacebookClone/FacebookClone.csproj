@@ -175,6 +175,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\ajax-loaderblack.gif" />
     <Content Include="Content\Images\ajax-loaderwhite.gif" />
+    <Content Include="Content\Images\jack.jpg" />
+    <Content Include="Content\Images\john.jpg" />
+    <Content Include="Content\Images\voji.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

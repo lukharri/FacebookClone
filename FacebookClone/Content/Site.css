@@ -12,8 +12,16 @@ div.em { position: absolute; right: -330px; bottom: -10px; z-index: 1; display: 
 
 .live-search-li { width: 300px; display: block; padding: 10px; position: relative; }
 
-input#search-text { position: relative; margin-top: 7px; margin-left: 100px; padding: 5px 10px; top: -5px; border-radius: 5px; }
+input#search-text { position: relative; margin-top: 7px; margin-left: 100px; padding: 5px 10px; top: -5px; 
+                    border-radius: 5px; }
 
-li.logout {margin-top: 5px; }
+li.logout { margin-top: 5px; }
 
 a.navbar-brand { margin-top: 5px; }
+
+li.live-search-li img{ width: 50px; }
+
+ul#live-search-ul { position: absolute; background: #222; right: -10px; top: 70px; padding: 0; border-radius: 5px; }
+
+ul#live-search-ul li.close { position: absolute; color: white; opacity: 1 !important; right: 10px; list-style: none; 
+                             top: 0; cursor: pointer; z-index: 10; }
