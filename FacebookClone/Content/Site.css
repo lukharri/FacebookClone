@@ -25,3 +25,7 @@ ul#live-search-ul { position: absolute; background: #222; right: -10px; top: 70p
 
 ul#live-search-ul li.close { position: absolute; color: white; opacity: 1 !important; right: 10px; list-style: none; 
                              top: 0; cursor: pointer; z-index: 10; }
+
+.user-image img { width: 200px; }
+
+li.name { display: block; color: white; margin: 0 10px; margin-top: 20px; }

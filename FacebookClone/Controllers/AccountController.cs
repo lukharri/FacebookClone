@@ -121,6 +121,20 @@ namespace FacebookClone.Controllers
             // viewbag username
             ViewBag.Username = username;
 
+            // get logged in user's username
+            string user = User.Identity.Name;
+
+            // viewbag user's full name
+            UserDTO userDTO = db.Users.Where(x => x.Username.Equals(user)).FirstOrDefault();
+            ViewBag.FullName = userDTO.FirstName + " " + userDTO.LastName;
+
+            // get viewing full name
+            UserDTO userDTO2 = db.Users.Where(x => x.Username.Equals(username)).FirstOrDefault();
+            ViewBag.ViewingFullName = userDTO2.FirstName + " " + userDTO2.LastName;
+
+            // get username's image
+            ViewBag.UsernameImage = userDTO2.Username + ".jpg";
+
             return View();
         }
 
