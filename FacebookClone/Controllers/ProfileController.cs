@@ -31,5 +31,32 @@ namespace FacebookClone.Controllers
             // return JSON
             return Json(usernames);
         }
+
+
+        // POST: Profile/AddFriend
+        [HttpPost]
+        public void AddFriend(string friend)
+        {
+            // init db
+            Db db = new Db();
+
+            // get logged in user's id
+            UserDTO userDto = db.Users.Where(x => x.Username.Equals(User.Identity.Name)).FirstOrDefault();
+            int userId = userDto.Id;
+
+            // get friend to be id
+            UserDTO userDto2 = db.Users.Where(x => x.Username.Equals(friend)).FirstOrDefault();
+            int friendId = userDto2.Id;
+
+            // add dto
+            FriendDto friendDto = new FriendDto();
+
+            friendDto.User1 = userId;
+            friendDto.User2 = friendId;
+            friendDto.Active = false;
+
+            db.Friends.Add(friendDto);
+            db.SaveChanges();
+        }
     }
 }

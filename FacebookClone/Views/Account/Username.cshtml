@@ -9,6 +9,31 @@
             <img src="~/Content/Images/@ViewBag.UsernameImage" />
         </p>
         <h2>@ViewBag.ViewingFullName (@ViewBag.Username)</h2>
+
+        @if (ViewBag.UserType == "guest")
+        {
+            <div class="friends">
+                @if (ViewBag.NotFriends == "Pending")
+                {
+                    <div class="are-friends-div alert alert-warning">
+                        <p>Pending friend request</p>
+                    </div>
+                }
+                else if (ViewBag.NotFriends == "True")
+                {
+                    <div class="are-friends-div alert alert-info">
+                        <a class="add-friend" href="#">Add Friend</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="are-friends-div alert alert-success">
+                        <span class="glyphicon glyphicon-thumbs-up"></span> Friends
+                    </div>
+                }
+            </div>
+        }
+
     </div>
 </div>
 
@@ -31,6 +56,21 @@
         .done(function () {
 
             hub.server.hello("SignalR working...");
+
+            // Add friend
+            $("a.add-friend").click(function (e) {
+                e.preventDefault();
+
+                var friend = '@ViewBag.Username';
+                var url = "/profile/AddFriend";
+
+                $.post(url, { friend: friend }, function (data) {
+                    $(".add-friends-div").removeClass("alert-info").addClass("alert-warning")
+                        .html('<p>Pending friend request.</p>');
+                }).done(function () {
+                    hub.server.notify(friend);
+                });
+            });
 
 
         });

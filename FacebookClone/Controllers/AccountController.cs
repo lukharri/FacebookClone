@@ -135,6 +135,49 @@ namespace FacebookClone.Controllers
             // get username's image
             ViewBag.UsernameImage = userDTO2.Username + ".jpg";
 
+            // viewbag user type
+            string userType = "guest";
+
+            if (username.Equals(user))
+                userType = "owner";
+
+            ViewBag.UserType = userType;
+
+            // check friend status
+            if(userType == "guest")
+            {
+                UserDTO user1 = db.Users.Where(x => x.Username.Equals(user)).FirstOrDefault();
+                int id1 = user1.Id;
+
+                UserDTO user2 = db.Users.Where(x => x.Username.Equals(username)).FirstOrDefault();
+                int id2 = user2.Id;
+
+                FriendDto friend1 = db.Friends.Where(x => x.User1 == id1 && x.User2 == id2).FirstOrDefault();
+                FriendDto friend2 = db.Friends.Where(x => x.User2 == id1 && x.User1 == id2).FirstOrDefault();
+
+                if(friend1 == null && friend2 == null)
+                {
+                    ViewBag.NotFriends = "True";
+                }
+
+                if (friend1 != null)
+                {
+                    if (!friend1.Active)
+                    {
+                        ViewBag.NotFriends = "Pending";
+                    }
+                }
+
+                if (friend2 != null)
+                {
+                    if (!friend2.Active)
+                    {
+                        ViewBag.NotFriends = "Pending";
+                    }
+                }
+
+            }
+
             return View();
         }
 
