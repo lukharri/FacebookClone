@@ -30,6 +30,20 @@
                 @if (Request.IsAuthenticated)
                 {
                     <ul class="nav navbar-nav navbar-right owner">
+                        <li class="friend-count-li">
+                            @if(ViewBag.FriendCount != null)
+                            {
+                                <span class="glyphicon glyphicon-user notify-friend red @User.Identity.Name">
+                                    <span>@ViewBag.FriendCount</span>
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="glyphicon glyphicon-user notify-friend @User.Identity.Name">
+                                    <span></span>
+                                </span>
+                            }
+                        </li>
                         <li class="name">@ViewBag.FullName</li>
                         <li class="logout">@Html.ActionLink("Logout", "Logout", "Account")</li>
                     </ul>

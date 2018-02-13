@@ -50,6 +50,12 @@
         console.log(msg);
     }
 
+
+    hub.client.NotifyFriend = function (f, count) {
+        $("span.notify-friend." + f + "> span").text(count);
+        $("span.notify-friend." + f).addClass("red");
+    }
+
     // connect to hub
     $.connection.hub
         .start()

@@ -128,6 +128,9 @@ namespace FacebookClone.Controllers
             UserDTO userDTO = db.Users.Where(x => x.Username.Equals(user)).FirstOrDefault();
             ViewBag.FullName = userDTO.FirstName + " " + userDTO.LastName;
 
+            // get user's id
+            int userId = userDTO.Id;
+
             // get viewing full name
             UserDTO userDTO2 = db.Users.Where(x => x.Username.Equals(username)).FirstOrDefault();
             ViewBag.ViewingFullName = userDTO2.FirstName + " " + userDTO2.LastName;
@@ -176,6 +179,14 @@ namespace FacebookClone.Controllers
                     }
                 }
 
+            }
+
+            // get friend request count
+            var friendCount = db.Friends.Count(x => x.User2 == userId && x.Active == false);
+
+            if(friendCount > 0)
+            {
+                ViewBag.FriendCount = friendCount;
             }
 
             return View();

@@ -29,3 +29,7 @@ ul#live-search-ul li.close { position: absolute; color: white; opacity: 1 !impor
 .user-image img { width: 200px; }
 
 li.name { display: block; color: white; margin: 0 10px; margin-top: 20px; }
+
+.notify-friend { color: white; margin-top: 19px; margin-right: 10px; }
+
+.notify-friend.red { color: red; cursor: pointer; }
