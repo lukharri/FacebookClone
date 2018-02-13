@@ -58,5 +58,37 @@ namespace FacebookClone.Controllers
             db.Friends.Add(friendDto);
             db.SaveChanges();
         }
+
+
+        // POST: /profile/DisplayFriendRequests
+        [HttpPost]
+        public JsonResult DisplayFriendRequests()
+        {
+            // init db
+            Db db = new Db();
+
+            // get user id
+            UserDTO userDto = db.Users.Where(x => x.Username.Equals(User.Identity.Name)).FirstOrDefault();
+            int userId = userDto.Id;
+
+            // create list of friend requests
+            List<FriendRequestViewModel> friendRequests = db.Friends
+                .Where(x => x.User2 == userId && x.Active == false)
+                .ToArray()
+                .Select(x => new FriendRequestViewModel(x))
+                .ToList();
+
+            // init list of users
+            List<UserDTO> users = new List<UserDTO>();
+
+            foreach(var request in friendRequests)
+            {
+                var user = db.Users.Where(x => x.Id == request.User1).FirstOrDefault();
+                users.Add(user);
+            }
+
+            // return json
+            return Json(users);
+        }
     }
 }
