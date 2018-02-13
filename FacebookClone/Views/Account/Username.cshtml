@@ -16,3 +16,22 @@
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
 @Scripts.Render("~/bundles/javascript")
+<script src="/signalr/hubs"></script>
+<script>
+    // init hub connection
+    var hub = $.connection.echo;
+
+    hub.client.test = function (msg) {
+        console.log(msg);
+    }
+
+    // connect to hub
+    $.connection.hub
+        .start()
+        .done(function () {
+
+            hub.server.hello("SignalR working...");
+
+
+        });
+</script>

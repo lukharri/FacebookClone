@@ -68,7 +68,7 @@ namespace FacebookClone.Controllers
             // login user 
             FormsAuthentication.SetAuthCookie(model.Username, false);
 
-            // sert uploads directory
+            // set uploads directory
             var uploadsDir = new DirectoryInfo(string.Format("{0}Uploads", Server.MapPath(@"\")));
 
             // check if file was uploaded
@@ -110,7 +110,7 @@ namespace FacebookClone.Controllers
         public ActionResult Username(string username = "")
         {
             // init db
-            Db db = new Models.Data.Db();
+            Db db = new Db();
 
             // check if user exists
             if(!db.Users.Any(x => x.Username.Equals(username)))

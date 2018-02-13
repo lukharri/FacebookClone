@@ -26,6 +26,8 @@ namespace FacebookClone
             bundles.Add(new ScriptBundle("~/bundles/javascript").Include(
                       "~/Scripts/Login.js",
                       "~/Scripts/LiveSearch.js",
+                      "~/Scripts/jquery.signalR-2.1.2.min.js",
+                      //"~/Scripts/SignalR-HubUse.js",
                       "~/Scripts/ImagePreview.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
