@@ -105,5 +105,20 @@ namespace FacebookClone.Controllers
             friends.Active = true;
             db.SaveChanges();
         }
+
+
+        // POST: /profile/DeclineFriendRequest
+        [HttpPost]
+        public void DeclineFriendRequest(int friendId)
+        {
+            Db db = new Db();
+
+            UserDTO userDto = db.Users.Where(x => x.Username.Equals(User.Identity.Name)).FirstOrDefault();
+            int userId = userDto.Id;
+
+            FriendDto friends = db.Friends.Where(x => x.User1 == friendId && x.User2 == userId).FirstOrDefault();
+            db.Friends.Remove(friends);
+            db.SaveChanges();
+        }
     }
 }

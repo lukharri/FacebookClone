@@ -29,6 +29,7 @@ namespace FacebookClone
                       //"~/Scripts/AddFriend.js",
                       "~/Scripts/DisplayFriendRequests.js",
                       "~/Scripts/AcceptFriendRequest.js",
+                      "~/Scripts/DeclineFriendRequest.js",
                       "~/Scripts/jquery.signalR-2.1.2.min.js",
                       //"~/Scripts/SignalR-HubUse.js",
                       "~/Scripts/ImagePreview.js"));
