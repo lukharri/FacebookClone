@@ -12,7 +12,7 @@
         $.post(url, { friendId: friendId }, function (data) {
         }).done(function () {
             $this.parent().fadeOut("fast");
-            //hub.server.getFriendCount();
+            hub.server.getFriendRequestCount();
             //hub.server.getFriendsCount(friendId);
         });
 

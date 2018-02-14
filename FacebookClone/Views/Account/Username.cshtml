@@ -58,6 +58,18 @@
     }
 
 
+    // update friend count after accepting a friend request
+    hub.client.friendCount = function (username, friendRequests) {
+
+        if (friendRequests > 0) {
+            $("span.notify-friend." + username + "> span").text(friendRequests);
+        } else {
+            $("span.notify-friend." + username + "> span").text("");
+            $("span.notify-friend." + username).removeClass("red");
+        }
+    }
+
+
     $.connection.hub
         .start()
         .done(function () {

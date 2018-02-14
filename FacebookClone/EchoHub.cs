@@ -6,24 +6,25 @@ using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using System.Diagnostics;
 using FacebookClone.Models.Data;
+using System.Web.Mvc;
 
 namespace FacebookClone
 {
     [HubName("echo")]
     public class EchoHub : Hub
     {
-        public void Hello(string message)
-        {
+        //public void Hello(string message)
+        //{
 
-            Trace.WriteLine(message);
-            //Clients.All.hello();
+        //    Trace.WriteLine(message);
+        //    //Clients.All.hello();
 
-            // set clients
-            var clients = Clients.All;
+        //    // set clients
+        //    var clients = Clients.All;
 
-            // call js function
-            clients.test("this is a test");
-        }
+        //    // call js function
+        //    clients.test("this is a test");
+        //}
 
 
         public void Notify(string friend)
@@ -44,6 +45,22 @@ namespace FacebookClone
             // call js function
             clients.NotifyFriend(friend, frCount);
         
+        }
+
+
+        // Get number of pending friend requests
+        public void GetFriendRequestCount()
+        {
+            Db db = new Db();
+
+            UserDTO userDto = db.Users.Where(x => x.Username.Equals(Context.User.Identity.Name)).FirstOrDefault();
+            int userId = userDto.Id;
+
+            var friendRequests = db.Friends.Count(x => x.User2 == userId && x.Active == false);
+
+            var clients = Clients.All;
+
+            clients.friendCount(Context.User.Identity.Name, friendRequests);
         }
 
     }
