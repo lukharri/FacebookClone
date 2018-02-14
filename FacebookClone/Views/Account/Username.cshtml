@@ -8,7 +8,7 @@
         <p class="user-image">
             <img src="~/Content/Images/@ViewBag.UsernameImage" />
         </p>
-        <h2>@ViewBag.ViewingFullName (@ViewBag.Username)</h2>
+        <h4>@ViewBag.ViewingFullName (@ViewBag.Username)</h4>
 
         @if (ViewBag.UserType == "guest")
         {
@@ -34,6 +34,10 @@
             </div>
         }
 
+        <div class="friends @User.Identity.Name alert alert-success">
+            <span>@ViewBag.FriendCount</span> Friend(s)
+        </div>
+
     </div>
 </div>
 
@@ -58,8 +62,8 @@
     }
 
 
-    // update friend count after accepting a friend request
-    hub.client.friendCount = function (username, friendRequests) {
+    // dynamically update # of friend requests after accepting a request
+    hub.client.updateFriendRequests = function (username, friendRequests) {
 
         if (friendRequests > 0) {
             $("span.notify-friend." + username + "> span").text(friendRequests);
@@ -70,11 +74,28 @@
     }
 
 
+    // dynamically update # of friends after accepting a request
+    hub.client.updateFriendCount = function (user1, user2, friendCount1, friendCount2) {
+
+        if (friendCount1 > 0) {
+            $("div.friends." + user1 + "> span").text(friendCount1);
+        } else {
+            $("div.friends." + user1 + "> span").text("0");
+        }
+
+        if (friendCount2 > 0) {
+            $("div.friends." + user2 + "> span").text(friendCount2);
+        } else {
+            $("div.friends." + user2 + "> span").text("0");
+        }
+    }
+
+
     $.connection.hub
         .start()
         .done(function () {
 
-            hub.server.hello("SignalR working...");
+            // hub.server.hello("SignalR working...");
 
             // Add friend
             $("a.add-friend").click(function (e) {

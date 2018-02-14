@@ -11,9 +11,9 @@
 
         $.post(url, { friendId: friendId }, function (data) {
         }).done(function () {
-            $this.parent().fadeOut("fast");
+            $this.parent().parent().fadeOut("fast");
             hub.server.getFriendRequestCount();
-            //hub.server.getFriendsCount(friendId);
+            hub.server.getFriendsCount(friendId);
         });
 
     });

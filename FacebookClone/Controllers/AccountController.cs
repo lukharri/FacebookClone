@@ -182,12 +182,23 @@ namespace FacebookClone.Controllers
             }
 
             // get friend request count
-            var friendCount = db.Friends.Count(x => x.User2 == userId && x.Active == false);
+            var friendRequests = db.Friends.Count(x => x.User2 == userId && x.Active == false);
 
-            if(friendCount > 0)
+            if(friendRequests > 0)
             {
-                ViewBag.FriendCount = friendCount;
+                ViewBag.FriendRequest = friendRequests;
             }
+
+
+            /*** GET FRIENDS COUNT ***/
+            // get Id of user whose page is being viewed
+            UserDTO userDto = db.Users.Where(x => x.Username.Equals(username)).FirstOrDefault();
+            int usernameId = userDto.Id;
+
+            var friendCount = db.Friends
+                .Count(x => x.User2 == usernameId && x.Active == true || x.User1 == usernameId && x.Active == true);
+
+            ViewBag.FriendCount = friendCount;
 
             return View();
         }

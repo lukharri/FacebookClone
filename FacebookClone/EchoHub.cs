@@ -58,10 +58,35 @@ namespace FacebookClone
 
             var friendRequests = db.Friends.Count(x => x.User2 == userId && x.Active == false);
 
-            var clients = Clients.All;
+            var clients = Clients.Caller;
 
-            clients.friendCount(Context.User.Identity.Name, friendRequests);
+            clients.updateFriendRequests(Context.User.Identity.Name, friendRequests);
         }
 
+
+        public void GetFriendsCount(int friendId)
+        {
+            Db db = new Db();
+
+            // get logged in user's ID
+            UserDTO userDto = db.Users.Where(x => x.Username.Equals(Context.User.Identity.Name)).FirstOrDefault();
+            int userId = userDto.Id;
+
+            // get logged in user's friend count
+            var friendCount1 = db.Friends
+            .Count(x => x.User2 == userId && x.Active == true || x.User1 == userId && x.Active == true);
+
+            // get friend's username
+            UserDTO userDto2 = db.Users.Where(x => x.Id.Equals(friendId)).FirstOrDefault();
+            var username = userDto2.Username;
+
+            // get friend's friend count
+            var friendCount2 = db.Friends
+            .Count(x => x.User2 == friendId && x.Active == true || x.User1 == friendId && x.Active == true);
+
+            // set clients and call JS function
+            var clients = Clients.All;
+            clients.updateFriendCount(Context.User.Identity.Name, username, friendCount1, friendCount2);
+        }
     }
 }

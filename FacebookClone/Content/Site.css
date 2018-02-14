@@ -21,20 +21,21 @@ li.logout { margin-top: 5px; }
 
 a.navbar-brand { margin-top: 5px; }
 
+
+/**********   Live Search   *********/ 
 li.live-search-li img{ width: 50px; }
 
-ul#live-search-ul { position: absolute; background: #222; right: -10px; top: 70px; padding: 0; border-radius: 5px; }
+ul#live-search-ul { position: absolute; background: #222; left: 109px; top: 70px; padding: 0; border-radius: 5px; }
 
 ul#live-search-ul li.close { position: absolute; color: white; opacity: 1 !important; right: 10px; list-style: none; 
                              top: 0; cursor: pointer; z-index: 10; }
 
-.user-image img { width: 200px; }
+.user-image img { width: 200px;  border-radius: 3px; }
 
 li.name { display: block; color: white; margin: 0 10px; margin-top: 20px; }
 
 
-/******   Friend Notification   ******/ 
-
+/******   Friend Request Notification   ******/ 
 .notify-friend { color: white; margin-top: 20px; margin-right: 10px; }
 
 .notify-friend.red { color: red; cursor: pointer; }
@@ -54,3 +55,5 @@ li.close { color: white; list-style-type: none; margin-right: 20px; margin-top: 
 .close:hover { color: red; }
 
 a.accept { margin-left: 10px; margin-right: 7px; }
+
+.friends { width: 200px; }
