@@ -33,7 +33,7 @@
 
     $("body").on("click", "ul#notify-friend-ul li.close", function () {
         $("ul#notify-friend-ul").empty();
-    })
+    });
 });
 
 
