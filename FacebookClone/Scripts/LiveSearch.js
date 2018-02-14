@@ -8,7 +8,7 @@
 
         $("ul#live-search-ul").empty();
 
-        if (searchVal == "" || searchVal == " ") return false;
+        if (searchVal === "" || searchVal === " ") return false;
 
         var url = "profile/LiveSearch";
 
@@ -24,7 +24,7 @@
                 var obj = data[i];
 
                 $("ul#live-search-ul").append('<li class=live-search-li><a href="/'
-                    + obj.Username + '"><img src="Content/Images/' + obj.Username + '.jpg" />' + ' '
+                    + obj.Username + '"><img src="Content/Images/' + obj.UserId + '.jpg" />' + ' '
                     + obj.FirstName + ' ' + obj.LastName + '</a></li>');
             }
 
@@ -35,6 +35,6 @@
     $("body").on("click", "ul#live-search-ul li.close", function () {
         $("ul#live-search-ul").empty();
         $("input#search-text").val("");
-    })
+    });
 
 });

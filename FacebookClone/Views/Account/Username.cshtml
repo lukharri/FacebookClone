@@ -46,17 +46,18 @@
     // init hub connection
     var hub = $.connection.echo;
 
-    hub.client.test = function (msg) {
-        console.log(msg);
-    }
+    //hub.client.test = function (msg) {
+    //    console.log(msg);
+    //}
 
 
+    // notifies user of a pending friend request
     hub.client.NotifyFriend = function (f, count) {
         $("span.notify-friend." + f + "> span").text(count);
         $("span.notify-friend." + f).addClass("red");
     }
 
-    // connect to hub
+
     $.connection.hub
         .start()
         .done(function () {
@@ -77,7 +78,5 @@
                     hub.server.notify(friend);
                 });
             });
-
-
         });
 </script>
