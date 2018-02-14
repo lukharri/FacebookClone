@@ -1,4 +1,6 @@
-﻿.form-horizontal.login-form { color: white !important; position: relative; }
+﻿.navbar-inverse { border-radius: 0px; }
+
+.form-horizontal.login-form { color: white !important; position: relative; }
 
 .form-horizontal.login-form label { color: white !important; }
 
@@ -30,6 +32,25 @@ ul#live-search-ul li.close { position: absolute; color: white; opacity: 1 !impor
 
 li.name { display: block; color: white; margin: 0 10px; margin-top: 20px; }
 
-.notify-friend { color: white; margin-top: 19px; margin-right: 10px; }
+
+/******   Friend Notification   ******/ 
+
+.notify-friend { color: white; margin-top: 20px; margin-right: 10px; }
 
 .notify-friend.red { color: red; cursor: pointer; }
+
+span.notify-friend > span { display: inline-block; margin-left: -7px; }
+
+li.friend-count-li { position: relative; }
+
+ul#notify-friend-ul { position: absolute; right: 0; top: 70px; background: #222; border-radius: 3px; }
+
+li.friend-count-li img { width: 50px; }
+
+li.notify-friend-li { width: 300px; display: block; padding: 10px; }
+
+li.close { color: white; list-style-type: none; margin-right: 20px; margin-top: 10px; opacity: 1 !important; cursor: pointer; }
+
+.close:hover { color: red; }
+
+a.accept { margin-left: 10px; margin-right: 7px; }

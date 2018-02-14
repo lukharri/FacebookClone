@@ -72,7 +72,7 @@
                 var url = "/profile/AddFriend";
 
                 $.post(url, { friend: friend }, function (data) {
-                    $(".add-friends-div").removeClass("alert-info").addClass("alert-warning")
+                    $(".are-friends-div").removeClass("alert-info").addClass("alert-warning")
                         .html('<p>Pending friend request.</p>');
                 }).done(function () {
                     hub.server.notify(friend);

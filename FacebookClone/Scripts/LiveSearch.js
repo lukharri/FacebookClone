@@ -24,7 +24,7 @@
                 var obj = data[i];
 
                 $("ul#live-search-ul").append('<li class=live-search-li><a href="/'
-                    + obj.Username + '"><img src="Content/Images/' + obj.UserId + '.jpg" />' + ' '
+                    + obj.Username + '"><img src="Content/Images/' + obj.Username + '.jpg" />' + ' '
                     + obj.FirstName + ' ' + obj.LastName + '</a></li>');
             }
 

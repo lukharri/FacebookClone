@@ -21,10 +21,10 @@
                 var obj = data[i];
 
                 $("ul#notify-friend-ul").append('<li class=notify-friend-li><a href="/'
-                    + obj.Username + '"><img src="Content/Images/' + obj.Id + '.jpg" />' + ' '
+                    + obj.Username + '"><img src="Content/Images/' + obj.Username + '.jpg" />' + ' '
                     + obj.FirstName + ' ' + obj.LastName + '</a> ' +  
                     '<a class="accept" href=# data-id="' + obj.Id + '"><span class="glyphicon glyphicon-ok"</a>' + ' ' +
-                    '<a class="accept" href=# data-id="' + obj.Id + '"><span class="glyphicon glyphicon-ok"</a> </li>');
+                    '<a class="decline" href=# data-id="' + obj.Id + '"><span class="glyphicon glyphicon-remove"</a> </li>');
             }
 
         });
