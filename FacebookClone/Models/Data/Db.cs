@@ -10,5 +10,6 @@ namespace FacebookClone.Models.Data
     {
         public DbSet<UserDTO> Users { get; set; }
         public DbSet<FriendDto> Friends { get; set; }
+        public DbSet<MessageDto> Messages { get; set; }
     }
 }

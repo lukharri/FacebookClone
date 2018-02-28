@@ -39,6 +39,23 @@
         </div>
 
     </div>
+
+    <div class="col-xs-12 col-md-6 wall">
+        @if (ViewBag.UserType == "guest")
+        {
+            if (ViewBag.NotFriends == null)
+            {
+                <div class="send-msg-parent">
+                    <div class="msg-text-area">
+                        <textarea id="msg-area"></textarea>
+                    </div>
+                    <a href="#" id="send-msg" class="ta">Send Message</a>
+                    <img src="~/Content/Images/ajax-loaderblack.gif" class="hide" />
+                    <div class="send-msg-notify alert alert-success hide">Message Sent</div>
+                </div>
+            }
+        }
+    </div>
 </div>
 
 
@@ -111,5 +128,34 @@
                     hub.server.notify(friend);
                 });
             });
+
+
+            $("body").on("click", "a#send-msg", function (e) {
+
+                e.preventDefault();
+
+                var $this = $(this);
+
+                $this.parent().find("img").removeClass("hide");
+
+                var friend = '@ViewBag.Username';
+                var message = $('#msg-area').val();
+                var url = "/profile/SendMessage";
+
+                $.post(url, { friend : friend, message : message }, function (data) {
+                }).done(function () {
+                    $this.parent().find("img").addClass("hide");
+                    //hub.server.notifyOfMessage(friend);
+                    $('#msg-area').val("");
+                    $this.parent().find(".send-msg-notify").removeClass("hide");
+                    setTimeout(function(){
+                        $this.parent().find(".send-msg-notify").fadeOut("fast", function() {
+                            $this.parent().find(".send-msg-notify").addClass("hide");
+                        });
+                    }, 2000);  
+                });
+
+            });
+
         });
 </script>

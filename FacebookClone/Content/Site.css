@@ -30,7 +30,7 @@ ul#live-search-ul { position: absolute; background: #222; left: 109px; top: 70px
 ul#live-search-ul li.close { position: absolute; color: white; opacity: 1 !important; right: 10px; list-style: none; 
                              top: 0; cursor: pointer; z-index: 10; }
 
-.user-image img { width: 200px;  border-radius: 3px; }
+.user-image img { width: 200px;  border-radius: 3px; height: 200px }
 
 li.name { display: block; color: white; margin: 0 10px; margin-top: 20px; }
 
@@ -57,3 +57,9 @@ li.close { color: white; list-style-type: none; margin-right: 20px; margin-top: 
 a.accept { margin-left: 10px; margin-right: 7px; }
 
 .friends { width: 200px; }
+
+
+/******   New Message Notification   ******/ 
+li.msg-count-li { color: white; margin-top: 20px; }
+span#message-count { position: relative; top: -3px; right: 10px;}
+.msg-notify.red { color: red; cursor: pointer; }

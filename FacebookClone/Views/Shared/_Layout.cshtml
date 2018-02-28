@@ -45,6 +45,22 @@
                             }
                             <ul id="notify-friend-ul"></ul>
                         </li>
+                        <li class="msg-count-li">
+                            @if (ViewBag.MessageCount > 0)
+                            {
+                                <span class="glyphicon glyphicon-comment msg-notify red @User.Identity.Name">
+                                    <span id="message-count">@ViewBag.MessageCount</span>
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="glyphicon glyphicon-comment msg-notify @User.Identity.Name">
+                                    <span></span>
+                                </span>
+                            }
+                            <ul id="message-friend-ul"></ul>
+                        </li>
+
                         <li class="name">@ViewBag.FullName</li>
                         <li class="logout">@Html.ActionLink("Logout", "Logout", "Account")</li>
                     </ul>

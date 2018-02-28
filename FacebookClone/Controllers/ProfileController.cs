@@ -120,5 +120,55 @@ namespace FacebookClone.Controllers
             db.Friends.Remove(friends);
             db.SaveChanges();
         }
+
+
+        // POST: /profile/SendMessage
+        [HttpPost]
+        public void SendMessage(string friend, string message)
+        {
+            Db db = new Db();
+
+            // get user id
+            UserDTO userDto = db.Users.Where(x => x.Username.Equals(User.Identity.Name)).FirstOrDefault();
+            int userId = userDto.Id;
+
+            // get friend id
+            UserDTO userDto2 = db.Users.Where(x => x.Username.Equals(friend)).FirstOrDefault();
+            int friendId = userDto2.Id;
+
+            MessageDto messageDto = new MessageDto();
+            messageDto.From = userId;
+            messageDto.To = friendId;
+            messageDto.Message = message;
+            messageDto.DateSent = DateTime.Now;
+            messageDto.Read = false;
+
+            db.Messages.Add(messageDto);
+            db.SaveChanges();
+
+        }
+
+
+        // POST: /profile/DisplayUnreadMessages
+        [HttpPost]
+        public JsonResult DisplayUnreadMessages()
+        {
+            Db db = new Db();
+
+            // get user id
+            UserDTO userDto = db.Users.Where(x => x.Username.Equals(User.Identity.Name)).FirstOrDefault();
+            int userId = userDto.Id;
+
+            // create list of unread messages
+            List<MessageViewModel> messages = db.Messages.Where(x => x.To == userId && x.Read == false)
+                .ToArray().Select(x => new MessageViewModel(x)).ToList();
+
+            // make unread read
+            db.Messages.Where(x => x.To == userId && x.Read == false).ToList().ForEach(x => x.Read = true);
+            db.SaveChanges();
+
+            // return json
+            return Json(messages);
+        }
     }
 }
