@@ -66,3 +66,13 @@ span#message-count { position: relative; top: -3px; right: 10px;}
 li.msg-notify-li { list-style: none; width: 300px; display: inline-block; padding: 10px; }
 ul#message-friend-ul { position: absolute; padding: 0; background: #222; right: -10px; top: 60px; 
   border-radius: 3px; }
+
+.send-msg-parent { width: 400px; margin: 30px; margin-left: 0; }
+.wall textarea { width: 400px; height: 100px; padding: 10px; border: 2px solid #428bca; border-radius: 3px; }
+.ta,
+.ta:hover,
+.ta:focus { display: block; background: #468847; padding: 10px; color: white; font-weight: bold; width: 150px; 
+      text-align: center; margin-top: 10px; border-radius: 3px; text-decoration: none; }
+
+.send-msg-parent img { position: absolute; bottom: 40px; left: 180px; }
+.send-msg-notify { position: absolute; bottom: 0px; left: 180px; }

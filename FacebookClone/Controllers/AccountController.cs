@@ -201,7 +201,7 @@ namespace FacebookClone.Controllers
             ViewBag.FriendCount = friendCount;
 
             // Get message count
-            var messageCount = db.Messages.Count(x => x.To == usernameId && x.Read == false);
+            var messageCount = db.Messages.Count(x => x.To == userId && x.Read == false);
             ViewBag.MessageCount = messageCount;
 
             return View();
