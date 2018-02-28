@@ -18,8 +18,8 @@
             for (var i = 0; i < data.length; i++) {
                 var obj = data[i];
 
-                $("ul#message-friend-ul").append('<li class=msg-notify-li><a href="/' + obj.FromUsername + '"><img src="uploads/'
-                    + obj.FromId + '.jpg" /></a>' + ' ' + obj.Message + '</li>');
+                $("ul#message-friend-ul").append('<li class=msg-notify-li><a href="/' + obj.FromUsername
+                    + '"><img src="Content/Images/' + obj.FromUsername + '.jpg" /></a>' + ' ' + obj.Message + '</li>');
             }
 
         }).done(function () {
