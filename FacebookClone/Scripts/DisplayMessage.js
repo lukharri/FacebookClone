@@ -23,7 +23,7 @@
             }
 
         }).done(function () {
-            //hub.server.notifyOfMessageOwner();
+            hub.server.notifyOfMessageOwner();
         });
 
     });

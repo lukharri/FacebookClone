@@ -88,5 +88,24 @@ namespace FacebookClone
             var clients = Clients.All;
             clients.updateFriendCount(Context.User.Identity.Name, username, friendCount1, friendCount2);
         }
+
+
+        public void NotifyOfMessage(string friend)
+        {
+            Db db = new Db();
+
+            // get friend
+            UserDTO userDto = db.Users.Where(x => x.Username.Equals(friend)).FirstOrDefault();
+            int friendId = userDto.Id;
+
+            // get message count
+            var messageCount = db.Messages.Count(x => x.To == friendId && x.Read == false);
+
+            // set clients
+            var clients = Clients.Others;
+
+            // call js function
+            clients.msgcount(friend, messageCount);
+        }
     }
 }

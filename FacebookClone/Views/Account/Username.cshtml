@@ -91,6 +91,19 @@
     }
 
 
+    // dynamically notify user of a new messages
+    hub.client.msgcount = function (username, count) {
+
+        if (count > 0) {
+            $("span.msg-notify." + username + "> span").text(count);
+            $("span.msg-notify." + username).addClass("red");
+        } else {
+            $("span.msg-notify." + username + "> span").text("");
+            $("span.msg-notify." + username).removeClass("red");
+        }
+    }
+
+
     // dynamically update # of friends after accepting a request
     hub.client.updateFriendCount = function (user1, user2, friendCount1, friendCount2) {
 
@@ -145,7 +158,7 @@
                 $.post(url, { friend : friend, message : message }, function (data) {
                 }).done(function () {
                     $this.parent().find("img").addClass("hide");
-                    //hub.server.notifyOfMessage(friend);
+                    hub.server.notifyOfMessage(friend);
                     $('#msg-area').val("");
                     $this.parent().find(".send-msg-notify").removeClass("hide");
                     setTimeout(function(){

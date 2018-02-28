@@ -23,7 +23,7 @@ a.navbar-brand { margin-top: 5px; }
 
 
 /**********   Live Search   *********/ 
-li.live-search-li img{ width: 50px; }
+li.live-search-li img, li.msg-count-li img{ width: 50px; }
 
 ul#live-search-ul { position: absolute; background: #222; left: 109px; top: 70px; padding: 0; border-radius: 5px; }
 
@@ -60,6 +60,9 @@ a.accept { margin-left: 10px; margin-right: 7px; }
 
 
 /******   New Message Notification   ******/ 
-li.msg-count-li { color: white; margin-top: 20px; }
+li.msg-count-li { color: white; margin-top: 22px; margin-right: 10px; }
 span#message-count { position: relative; top: -3px; right: 10px;}
 .msg-notify.red { color: red; cursor: pointer; }
+li.msg-notify-li { list-style: none; width: 300px; display: inline-block; padding: 10px; }
+ul#message-friend-ul { position: absolute; padding: 0; background: #222; right: -10px; top: 60px; 
+  border-radius: 3px; }
