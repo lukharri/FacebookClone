@@ -21,6 +21,8 @@ li.logout { margin-top: 5px; }
 
 a.navbar-brand { margin-top: 5px; }
 
+img#image-preview { margin-top: 20px; border-radius: 3px;}
+
 
 /**********   Live Search   *********/ 
 li.live-search-li img, li.msg-count-li img{ width: 50px; }

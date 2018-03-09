@@ -100,6 +100,16 @@ namespace FacebookClone.Controllers
                 imageFile.SaveAs(path);
             }
 
+            // add to wall
+            WallDto wall = new WallDto();
+
+            wall.Id = userId;
+            wall.Message = "";
+            wall.DateEdited = DateTime.Now;
+
+            db.Wall.Add(wall);
+            db.SaveChanges();
+
             // redirect
             return Redirect("~/" + model.Username);
         }
@@ -130,6 +140,9 @@ namespace FacebookClone.Controllers
 
             // get user's id
             int userId = userDTO.Id;
+
+            // ViewBag user's id
+            ViewBag.UserId = userId;
 
             // get viewing full name
             UserDTO userDTO2 = db.Users.Where(x => x.Username.Equals(username)).FirstOrDefault();
@@ -203,6 +216,10 @@ namespace FacebookClone.Controllers
             // Get message count
             var messageCount = db.Messages.Count(x => x.To == userId && x.Read == false);
             ViewBag.MessageCount = messageCount;
+
+            // viewBag user wall
+            WallDto wall = new WallDto();
+            ViewBag.WallMessage = db.Wall.Where(x => x.Id == userId).Select(x => x.Message).FirstOrDefault();
 
             return View();
         }
