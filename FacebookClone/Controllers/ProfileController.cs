@@ -170,5 +170,23 @@ namespace FacebookClone.Controllers
             // return json
             return Json(messages);
         }
+
+
+        // POST: /profile/UpdateWallMessage
+        [HttpPost]
+        public void UpdateWallMessage(int id, string message)
+        {
+            // init db
+            Db db = new Db();
+
+            // update wall
+            WallDto wall = db.Wall.Find(id);
+
+            wall.Message = message;
+            wall.DateEdited = DateTime.Now;
+
+            db.SaveChanges();
+
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using FacebookClone.Models.Data;
 using FacebookClone.Models.ViewModels.Account;
+using FacebookClone.Models.ViewModels.Profile;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -220,6 +221,20 @@ namespace FacebookClone.Controllers
             // viewBag user wall
             WallDto wall = new WallDto();
             ViewBag.WallMessage = db.Wall.Where(x => x.Id == userId).Select(x => x.Message).FirstOrDefault();
+
+            // ViewBag friend walls
+            List<int> friendsIds1 = db.Friends.Where(x => x.User1 == userId && x.Active == true)
+                .ToArray().Select(x => x.User2).ToList();
+
+            List<int> friendsIds2 = db.Friends.Where(x => x.User2 == userId && x.Active == true)
+                .ToArray().Select(x => x.User1).ToList();
+
+            List<int> allFriendIds = friendsIds1.Concat(friendsIds2).ToList();
+
+            List<WallViewModel> walls = db.Wall.Where(x => allFriendIds.Contains(x.Id))
+                .ToArray().OrderByDescending(x => x.DateEdited).Select(x => new WallViewModel(x)).ToList();
+
+            ViewBag.Walls = walls;
 
             return View();
         }

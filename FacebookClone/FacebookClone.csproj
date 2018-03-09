@@ -181,8 +181,11 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\ajax-loaderblack.gif" />
     <Content Include="Content\Images\ajax-loaderwhite.gif" />
+    <Content Include="Content\Images\6.jpg" />
     <Content Include="Content\Images\Jack.jpg" />
+    <Content Include="Content\Images\5.jpg" />
     <Content Include="Content\Images\John.jpg" />
+    <Content Include="Content\Images\4.jpg" />
     <Content Include="Content\Images\Voya.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -213,6 +216,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\SendMessage.js" />
     <Content Include="Scripts\SignalR-HubUse.js" />
+    <Content Include="Scripts\UpdateWall.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

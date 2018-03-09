@@ -76,6 +76,24 @@
     </div>
 </div>
 
+<div class="row friend-wall-row">
+    @if (Enumerable.Count(ViewBag.Walls) > 0)
+    {
+        <h4>What your friends are saying...</h4>
+        foreach (var item in ViewBag.Walls)
+        {
+            <div class="friend-wall">
+                <img src="~/Content/Images/@(item.Id).jpg" />
+                @item.Message
+            </div>
+        }
+    }
+    else
+    {
+        @:<h3>There are no friends walls.</h3>
+    }
+</div>
+
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
@@ -109,7 +127,7 @@
     }
 
 
-    // dynamically notify user of a new messages
+    // dynamically notify user of a new message
     hub.client.msgcount = function (username, count) {
 
         if (count > 0) {
