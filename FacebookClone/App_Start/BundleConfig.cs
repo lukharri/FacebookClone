@@ -33,6 +33,7 @@ namespace FacebookClone
                       "~/Scripts/SendMessage.js",
                       "~/Scripts/UpdateWall.js",
                       "~/Scripts/DisplayMessage.js",
+                      "~/Scripts/GetOnlineFriends.js",
                       "~/Scripts/jquery.signalR-2.1.2.min.js",
                       //"~/Scripts/SignalR-HubUse.js",
                       "~/Scripts/ImagePreview.js"));

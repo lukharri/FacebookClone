@@ -72,6 +72,17 @@
         @RenderBody()
     </div>
 
+    <div class="chat-box-holder" id="chb@(User.Identity.Name)"></div>
+
+    <div class="chat-box">
+        <h4><span></span></h4>
+        <div class="chat-box-text"></div>
+        <textarea class="chat-text-area"></textarea>
+        <br />
+        <a href="#" class="send-chat">Send</a>
+    </div>
+    
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

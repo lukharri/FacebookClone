@@ -7,6 +7,8 @@ using Microsoft.AspNet.SignalR.Hubs;
 using System.Diagnostics;
 using FacebookClone.Models.Data;
 using System.Web.Mvc;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace FacebookClone
 {
@@ -126,6 +128,163 @@ namespace FacebookClone
             // call js function
             clients.msgcount(Context.User.Identity.Name, messageCount);
 
+        }
+
+
+        public  override Task OnConnected()
+        {
+            // test log - log user connection
+            // Trace.WriteLine("here i am..." + Context.ConnectionId);
+
+            Db db = new Db();
+
+            // get logged in user's id
+            UserDTO userDto = db.Users.Where(x => x.Username.Equals(Context.User.Identity.Name)).FirstOrDefault();
+            int userId = userDto.Id;
+
+            // get connection id
+            string connId = Context.ConnectionId;
+
+            // add online dto
+            if(!db.OnlineUser.Any(x => x.Id == userId))
+            {
+                OnlineUserDto onlineUser = new OnlineUserDto();
+
+                onlineUser.Id = userId;
+                onlineUser.ConnectionId = connId;
+
+                db.OnlineUser.Add(onlineUser);
+                db.SaveChanges();
+
+            }
+
+
+            // get all onnline ids
+            List<int> onlineIds = db.OnlineUser.ToArray().Select(x => x.Id).ToList();
+
+            // get friend ids
+            List<int> friendsIds1 = db.Friends.Where(x => x.User1 == userId && x.Active == true)
+                .ToArray().Select(x => x.User2).ToList();
+
+            List<int> friendsIds2 = db.Friends.Where(x => x.User2 == userId && x.Active == true)
+                .ToArray().Select(x => x.User1).ToList();
+
+            List<int> allFriendIds = friendsIds1.Concat(friendsIds2).ToList();
+
+            // get final set of ids
+            List<int> resultList = onlineIds.Where((i) => allFriendIds.Contains(i)).ToList();
+
+            // create a dictionary of friend ids and usernames
+            Dictionary<int, string> friends = new Dictionary<int, string>();
+
+            foreach(var id in resultList)
+            {
+                var users = db.Users.Find(id);
+                string friend = users.Username;
+
+                if (!friends.ContainsKey(id))
+                {
+                    friends.Add(id, friend); 
+                }
+            }
+
+            var transformed = from key in friends.Keys
+                              select new { id = key, friend = friends[key] };
+            string json = JsonConvert.SerializeObject(transformed);
+
+            // set clients
+            var clients = Clients.Caller;
+
+            // call js function
+            clients.getonlinefriends(Context.User.Identity.Name, json);
+
+            UpdateChat();
+
+            // return
+            return base.OnConnected();
+        }
+
+
+        public override Task OnDisconnected(bool stopCalled)
+        {
+            // test log - log user logging out of account
+            Trace.WriteLine("disconnected..."   + Context.ConnectionId);
+
+
+            // init db
+            Db db = new Db();
+
+            // get logged in user's id
+            UserDTO userDto = db.Users.Where(x => x.Username.Equals(Context.User.Identity.Name)).FirstOrDefault();
+            int userId = userDto.Id;
+            
+            // remove from db
+            if(db.OnlineUser.Any(x => x.Id.Equals(userId)))
+            {
+                OnlineUserDto onlineUser = db.OnlineUser.Find(userId);
+                db.OnlineUser.Remove(onlineUser);
+                db.SaveChanges();
+            }
+
+            // update chat - display newly logged in friends
+            UpdateChat();
+
+            // Return
+            return base.OnDisconnected(stopCalled);
+        }
+
+
+        public void UpdateChat()
+        {
+            // init db
+            Db db = new Db();
+
+            // get all online ids
+            List<int> onlineIds = db.OnlineUser.ToArray().Select(x => x.Id).ToList();
+
+            // loop through online ids and get friends
+            foreach (var userId in onlineIds)
+            {
+                // get username
+                UserDTO user = db.Users.Find(userId);
+                var username = user.Username;
+
+                // get all friend ids
+                List<int> friendsIds1 = db.Friends.Where(x => x.User1 == userId && x.Active == true)
+                    .ToArray().Select(x => x.User2).ToList();
+
+                List<int> friendsIds2 = db.Friends.Where(x => x.User2 == userId && x.Active == true)
+                    .ToArray().Select(x => x.User1).ToList();
+
+                List<int> allFriendIds = friendsIds1.Concat(friendsIds2).ToList();
+
+                // get final set of ids
+                List<int> resultList = onlineIds.Where((i) => allFriendIds.Contains(i)).ToList();
+
+                // create a dictionary of friend ids anad user names
+                Dictionary<int, string> friends = new Dictionary<int, string>();
+
+                foreach (var id in resultList)
+                {
+                    var users = db.Users.Find(id);
+                    string friend = users.Username;
+
+                    if (!friends.ContainsKey(id))
+                    {
+                        friends.Add(id, friend);
+                    }
+                }
+
+                var transformed = from key in friends.Keys
+                                  select new { id = key, friend = friends[key] };
+                string json = JsonConvert.SerializeObject(transformed);
+
+                // set clients
+                var clients = Clients.All;
+
+                // call js function
+                clients.updatechat(username, json);
+            }
         }
     }
 }

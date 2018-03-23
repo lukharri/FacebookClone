@@ -81,3 +81,14 @@ ul#message-friend-ul { position: absolute; padding: 0; background: #222; right: 
 .send-msg-notify { position: absolute; bottom: 0px; left: 180px; }
 
 .wall img { position: absolute; bottom: 12px; left: 180px; }
+
+/******   Chat Box   ******/ 
+body > .chat-box { position: absolute; left: -3000px; }
+.chat { position: fixed; bottom: 0; right: 30px; }
+.chat ul li { cursor: pointer; margin: 30px; list-style: none; padding: 10px; }
+.chat ul li img { width: 30px !important; border-radius: 3px; }
+
+.chat-box-holder { position: fixed; bottom: 0; right: 130px; width: 100%; height: 50px; }
+.chat-box { width: 300px; height: 400px; background: #222; position: absolute; bottom: 0; right: 0; }
+.chat-box h4 { position: absolute; top: -65px; left: 0; background: #222; width: 100%; padding: 5px; }
+.chat-box img { width: 30px !important; }

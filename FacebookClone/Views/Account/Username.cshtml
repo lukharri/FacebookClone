@@ -94,6 +94,11 @@
     }
 </div>
 
+<div class="chat @User.Identity.Name">
+    <ul></ul>
+</div>
+
+
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
@@ -156,6 +161,61 @@
         }
     }
 
+
+    hub.client.getonlinefriends = function (user, data) {
+        var result = JSON.parse(data);
+
+        for (var i = 0; i < result.length; i++) {
+            var obj = result[i];
+
+            $(".chat." + user + "> ul").append('<li class="cf' + obj.id + '" data-id="' + obj.id +
+                '"><img src="Uploads/' + obj.id + '.jpg" /> ' + obj.friend + '</li>');
+
+            var chatbox = $("body > .chat-box").clone();
+
+            chatbox.attr("data-id", obj.id);
+            chatbox.attr("id", "cb" + obj.id);
+            chatbox.addClass("hidden");
+
+            chatbox.find("a.send-chat").attr("data-friend", obj.friend);
+            chatbox.find("a.send-chat").attr("data-id", obj.id);
+            chatbox.find("a.chat-box-text").attr("id", "cbtext" + obj.id);
+
+            $("#chb" + user).append("chat-box");
+            $("#chb" + user + " #cb" + obj.id + " h4 > span").html('<img src="Uploads/' + obj.id + '.jpg" />');
+        }
+    }
+
+
+    // dynamically update chat - show friends who are available for chatting after they've logged in
+    hub.client.updatechat = function (user, data) {
+        var result = JSON.parse(data);
+
+        $(".chat." + user + "> ul").empty();    
+
+        for (var i = 0; i < result.length; i++) {
+            var obj = result[i];
+
+            $(".chat." + user + "> ul").append('<li class="cf' + obj.id + '" data-id="' + obj.id +
+                '"><img src="Uploads/' + obj.id + '.jpg" /> ' + obj.friend + '</li>');
+
+            if (!($(".chat-box-holder #cb" + obj.id).length)) {
+
+                var chatbox = $("body > .chat-box").clone();
+
+                chatbox.attr("data-id", obj.id);
+                chatbox.attr("id", "cb" + obj.id);
+                chatbox.addClass("hidden");
+
+                chatbox.find("a.send-chat").attr("data-friend", obj.friend);
+                chatbox.find("a.send-chat").attr("data-id", obj.id);
+                chatbox.find("a.chat-box-text").attr("id", "cbtext" + obj.id);
+
+                $("#chb" + user).append("chat-box");
+                $("#chb" + user + " #cb" + obj.id + " h4 > span").html('<img src="Uploads/' + obj.id + '.jpg" />');
+            }
+        }
+    }
 
     $.connection.hub
         .start()
